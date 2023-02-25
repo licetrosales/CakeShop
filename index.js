@@ -6,14 +6,19 @@ app.use('/api/', router);
 
 let cakeRepo = require('./repos/cakeRepo');
 
-let cakes = cakeRepo.get();
-app.get('/', (req, res, next) => {
-    res.status(200).json({
-        "status": 200,
-        "statusText": "OK",
-        "message": "All cakes retrieved",
-        "data": cakes
+
+router.get('/', (req, res, next) => {
+    cakeRepo.get(function (data) {
+        res.status(200).json({
+            "status": 200,
+            "statusText": "OK",
+            "message": "All cakes retrieved",
+            "data": data
+        });
+    }, function (err) {
+        next(err);
     });
+
 });
 
 var server = app.listen(5000, () => {

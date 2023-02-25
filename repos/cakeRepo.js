@@ -1,10 +1,12 @@
 let cakeRepo = {
-    get: () => {
-        return [
-            {"id": 1, "name": "Mango"},
-            {"id": 2, "name": "Apple"},
-            {"id": 3, "name": "Cinamon"}
-        ];
+    get: (resolve, reject) => {
+       fs.readFile(FILE_NAME, (err, data) => {
+         if(err) {
+             reject(err);
+         }  else {
+             resolve(JSON.parse(data));
+         }
+       });
     }
 };
 module.exports = cakeRepo;

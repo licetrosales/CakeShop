@@ -4,8 +4,9 @@ let app = express();
 let router = express.Router();
 app.use('/api/', router);
 
+let cakeRepo = require('./repos/cakeRepo');
 
-
+let cakes = cakeRepo.get();
 app.get('/', (req, res, next) => {
     res.status(200).json({
         "status": 200,

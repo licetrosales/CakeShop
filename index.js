@@ -4,6 +4,7 @@ let cakeRepo = require('./repos/cakeRepo');
 
 let router = express.Router();
 let errorHelper = require('./helpers/errorHelpers');
+const e = require("express");
 app.use(express.json());
 
 app.use('/api/', router);
@@ -146,6 +147,7 @@ router.patch('/:id', (req, res, next) => {
 
 
 app.use(errorHelper.logErrorsConsole);
+app.use(errorHelper.logErrorsToFile);
 app.use(errorHelper.clientErrorHandler);
 app.use(errorHelper.errorHandler);
 

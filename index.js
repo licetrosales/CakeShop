@@ -89,7 +89,7 @@ router.put('/:id', (req, res, next) => {
         } else {
             res.status(404).json(
                 {
-                    "status": 400,
+                    "status": 404,
                     "statusText": "Not found",
                     "message": "Cake '" + req.params.id + "' could not be found.",
                     "error": {
@@ -101,6 +101,31 @@ router.put('/:id', (req, res, next) => {
         }
     }, (err) => {
         next(err);
+    });
+});
+
+router.delete('/:id', (req, res, next) => {
+    cakeRepo.getById(req.params.id, (data) => {
+        if (data) {
+            cakeRepo.delete(req.params.id, (data) => {
+                res.status(200).json({
+                    "status": 200,
+                    "statusText": "OK",
+                    "message": "Cake '" + req.params.id + "' is deleted.",
+                    "data": "Cake '" + req.params.id + "' is deleted."
+                });
+            });
+        } else {
+            res.status(404).json({
+                "status": 404,
+                "statusText": "Not found",
+                "message": "Cake '" + req.params.id + "' could not be found.",
+                "error": {
+                    "code": "NOT FOUND",
+                    "message": "Cake '" + req.params.id + "' could not be found."
+                }
+            });
+        }
     });
 });
 

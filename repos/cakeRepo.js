@@ -85,7 +85,7 @@ let cakeRepo = {
                 reject(err);
             } else {
                 let cakes = JSON.parse(data);
-                let index = cakes.findIndex(p => pi.id == id);
+                let index = cakes.findIndex(p => p.id == id);
                 if (index != -1) {
                     cakes.splice(index, 1);
                     fs.writeFile(FILE_NAME, JSON.stringify(cakes), (err) => {

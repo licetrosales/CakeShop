@@ -155,7 +155,7 @@ app.use((err, req, res, next) => {
 });
 app.use(errorHelper.logErrorsConsole);
 app.use(errorHelper.clientErrorHandler)
-
+app.use(errorHelper.errorHandler);
 
 var server = app.listen(5000, () => {
     console.log("Node server is running on http://localhost:5000..");

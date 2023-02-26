@@ -99,7 +99,7 @@ let cakeRepo = {
                 resolve(data);
             }
         });
-    }
+    },
 
 
 };

@@ -5,7 +5,7 @@ let errorHelpers = {
         next(err)
     },
     clientErrorHandler: (err, req, res, next) => {
-        if (rea.xhr) {
+        if (req.xhr) {
             res.status(500).json({
                 "status": 500,
                 "statusText": "Internal Server Error",
@@ -18,6 +18,7 @@ let errorHelpers = {
                 }
             });
         }
+        next(err)
     },
     errorHandler: (err, req, res, next) => {
         res.status(500).json(errorHelpers.errorBuilder(err));

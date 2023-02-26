@@ -1,9 +1,9 @@
 let express = require('express');
 let app = express();
 let cakeRepo = require('./repos/cakeRepo');
-let errorHelper = require('./helpers/errorHelpers');
-let router = express.Router();
 
+let router = express.Router();
+let errorHelper = require('./helpers/errorHelpers');
 app.use(express.json());
 
 app.use('/api/', router);
@@ -145,16 +145,8 @@ router.patch('/:id', (req, res, next) => {
 });
 
 
-app.use((err, req, res, next) => {
-    console.log(errorBuilder(err));
-    next(err);
-});
-
-app.use((err, req, res, next) => {
-    res.status(500).json(errorBuilder(err));
-});
 app.use(errorHelper.logErrorsConsole);
-app.use(errorHelper.clientErrorHandler)
+app.use(errorHelper.clientErrorHandler);
 app.use(errorHelper.errorHandler);
 
 var server = app.listen(5000, () => {

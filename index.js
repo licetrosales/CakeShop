@@ -154,6 +154,7 @@ app.use((err, req, res, next) => {
     res.status(500).json(errorBuilder(err));
 });
 app.use(errorHelper.logErrorsConsole);
+app.use(errorHelper.clientErrorHandler)
 
 
 var server = app.listen(5000, () => {

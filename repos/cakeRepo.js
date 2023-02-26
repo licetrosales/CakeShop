@@ -27,7 +27,24 @@ let cakeRepo = {
                 resolve(cakes);
             }
         });
+    },
 
+    insert: (newData, resolve, reject) => {
+        fs.readFile(FILE_NAME, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                let cakes = JSON.parse(data);
+                cakes.push(newData);
+                fs.writeFile(FILE_NAME, JSON.stringify(pies), function (err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(newData);
+                    }
+                });
+            }
+        });
     },
 
     getById: (id, resolve, reject) => {
@@ -40,6 +57,7 @@ let cakeRepo = {
             }
         });
     },
+
 
 };
 module.exports = cakeRepo;

@@ -142,20 +142,8 @@ router.patch('/:id', (req, res, next) => {
        });
         }
     });
-})
-const errorBuilder = (err) => {
-    return {
-        "status": 500,
-        "statusText": "Internal Server Error",
-        "message": err.message,
-        "error": {
-            "errno": err.errno,
-            "call": err.syscall,
-            "code": "INTERNAL_SERVER_ERROR",
-            "message": err.message
-        }
-    };
-};
+});
+
 
 app.use((err, req, res, next) => {
     console.log(errorBuilder(err));

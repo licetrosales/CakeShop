@@ -59,26 +59,47 @@ let cakeRepo = {
     },
 
     update: (newData, id, resolve, reject) => {
-        fs.readFile(FILE_NAME, (err, data) =>{
-           if(err) {
-               reject(err);
-           }
-           else {
-               let cakes= JSON.parse(data);
-               let cake = cakes.find(p => p.id == id);
-               if (cake) {
-                   Object.assign(cake, newData);
-                   fs.writeFile(FILE_NAME, JSON.stringify(cakes), (error) => {
-                       if(err){
-                           reject(err);
-                       } else {
-                           resolve(data);
-                       }
-                   });
-               }
-           }
+        fs.readFile(FILE_NAME, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                let cakes = JSON.parse(data);
+                let cake = cakes.find(p => p.id == id);
+                if (cake) {
+                    Object.assign(cake, newData);
+                    fs.writeFile(FILE_NAME, JSON.stringify(cakes), (error) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(data);
+                        }
+                    });
+                }
+            }
         });
-}
+    },
+
+    delete: (id, resolve, reject) => {
+        fs.readFile(FILE_NAME, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                let cakes = JSON.parse(data);
+                let index = cakes.findIndex(p => pi.id == id);
+                if (index != -1) {
+                    cakes.splice(index, 1);
+                    fs.writeFile(FILE_NAME, JSON.stringify(cakes), (err) => {
+                        if(err) {
+                            reject(err);
+                        } else {
+                            resolve(index);
+                        }
+                    } );
+                }
+                resolve(data);
+            }
+        });
+    }
 
 
 };

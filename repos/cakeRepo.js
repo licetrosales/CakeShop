@@ -58,6 +58,28 @@ let cakeRepo = {
         });
     },
 
+    update: (newData, id, resolve, reject) => {
+        fs.readFile(FILE_NAME, (err, data) =>{
+           if(err) {
+               reject(err);
+           }
+           else {
+               let cakes= JSON.parse(data);
+               let cake = cakes.find(p => p.id == id);
+               if (cake) {
+                   Object.assign(cake, newData);
+                   fs.writeFile(FILE_NAME, JSON.stringify(cakes), (error) => {
+                       if(err){
+                           reject(err);
+                       } else {
+                           resolve(data);
+                       }
+                   });
+               }
+           }
+        });
+}
+
 
 };
 module.exports = cakeRepo;

@@ -1,11 +1,12 @@
 let express = require('express');
 let app = express();
-
-let router = express.Router();
-app.use('/api/', router);
-
 let cakeRepo = require('./repos/cakeRepo');
 
+let router = express.Router();
+
+app.use(express.json());
+
+app.use('/api/', router);
 
 router.get('/', (req, res, next) => {
     cakeRepo.get(function (data) {
@@ -61,7 +62,18 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-
+router.post('/', (req, res, next) => {
+   cakeRepo.insert(req.body, (data) => {
+       res.status(201).json({
+          "status": 201,
+          "statusTest": "Created",
+          "message": "New Cake Added.",
+          "data": data
+       });
+   }, (err) => {
+       next(err);
+   });
+});
 
 var server = app.listen(5000, () => {
     console.log("Node server is running on http://localhost:5000..");

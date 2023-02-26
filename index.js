@@ -63,16 +63,45 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-   cakeRepo.insert(req.body, (data) => {
-       res.status(201).json({
-          "status": 201,
-          "statusTest": "Created",
-          "message": "New Cake Added.",
-          "data": data
-       });
-   }, (err) => {
-       next(err);
-   });
+    cakeRepo.insert(req.body, (data) => {
+        res.status(201).json({
+            "status": 201,
+            "statusTest": "Created",
+            "message": "New Cake Added.",
+            "data": data
+        });
+    }, (err) => {
+        next(err);
+    });
+});
+
+router.put('/:id', (req, res, next) => {
+    cakeRepo.getById(req.params.id, (data) => {
+        if (data) {
+            cakeRepo.update(req.body, req.params.id, (data) => {
+                res.status(200).json({
+                    "status": 200,
+                    "statusText": "OK",
+                    "message": "Cake '" + req.params.id + "' updated.",
+                    "data": data
+                });
+            });
+        } else {
+            res.status(404).json(
+                {
+                    "status": 400,
+                    "statusText": "Not found",
+                    "message": "Cake '" + req.params.id + "' could not be found.",
+                    "error": {
+                        "code": "NOT FOUND",
+                        "message": "Cake '" + req.params.id + "' could not be found."
+                    }
+                }
+            );
+        }
+    }, (err) => {
+        next(err);
+    });
 });
 
 var server = app.listen(5000, () => {

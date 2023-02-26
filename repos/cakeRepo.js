@@ -36,7 +36,7 @@ let cakeRepo = {
             } else {
                 let cakes = JSON.parse(data);
                 cakes.push(newData);
-                fs.writeFile(FILE_NAME, JSON.stringify(pies), function (err) {
+                fs.writeFile(FILE_NAME, JSON.stringify(cakes), function (err) {
                     if (err) {
                         reject(err);
                     } else {

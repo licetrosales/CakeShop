@@ -45,7 +45,7 @@ router.get('/:id', (req, res, next) => {
             res.status(200).json({
                 "status": 200,
                 "statusText": "OK",
-                "message": "All cakes retrieved",
+                "message": "Cake retrieved.",
                 "data": data
             });
         } else {
@@ -128,6 +128,21 @@ router.delete('/:id', (req, res, next) => {
         }
     });
 });
+
+router.patch('/:id', (req, res, next) => {
+    cakeRepo.getById(req.params.id, (data) => {
+        if(data){
+       cakeRepo.update(req.body, req.params.id, (data) => {
+          res.status(200).json({
+              "status": 200,
+              "statusText": "OK",
+              "message": "Cake '" + req.params.id + "' patched.",
+              "data":data
+          }) ;
+       });
+        }
+    });
+})
 
 var server = app.listen(5000, () => {
     console.log("Node server is running on http://localhost:5000..");

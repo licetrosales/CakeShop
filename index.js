@@ -158,6 +158,11 @@ const errorBuilder = (err) => {
 };
 
 app.use((err, req, res, next) => {
+    console.log(errorBuilder(err));
+    next(err);
+});
+
+app.use((err, req, res, next) => {
     res.status(500).json(errorBuilder(err));
 });
 

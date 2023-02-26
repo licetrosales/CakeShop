@@ -1,7 +1,7 @@
 let express = require('express');
 let app = express();
 let cakeRepo = require('./repos/cakeRepo');
-
+let errorHelper = require('./helpers/errorHelpers');
 let router = express.Router();
 
 app.use(express.json());
@@ -153,6 +153,7 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
     res.status(500).json(errorBuilder(err));
 });
+app.use(errorHelper.logErrorsConsole);
 
 
 var server = app.listen(5000, () => {

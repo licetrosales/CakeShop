@@ -143,6 +143,24 @@ router.patch('/:id', (req, res, next) => {
         }
     });
 })
+const errorBuilder = (err) => {
+    return {
+        "status": 500,
+        "statusText": "Internal Server Error",
+        "message": err.message,
+        "error": {
+            "errno": err.errno,
+            "call": err.syscall,
+            "code": "INTERNAL_SERVER_ERROR",
+            "message": err.message
+        }
+    };
+};
+
+app.use((err, req, res, next) => {
+    res.status(500).json(errorBuilder(err));
+});
+
 
 var server = app.listen(5000, () => {
     console.log("Node server is running on http://localhost:5000..");

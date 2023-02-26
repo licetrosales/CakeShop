@@ -1,6 +1,6 @@
 let fs = require('fs');
 
-const FILE_NAME = "./assets/cakes.json";
+const FILE_NAME = "./assets/cakes2.json";
 
 let cakeRepo = {
     get: (resolve, reject) => {
@@ -100,7 +100,5 @@ let cakeRepo = {
             }
         });
     },
-
-
 };
 module.exports = cakeRepo;
